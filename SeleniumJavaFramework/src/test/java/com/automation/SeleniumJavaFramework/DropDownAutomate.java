@@ -16,8 +16,10 @@ import org.testng.annotations.Test;
 
 public class DropDownAutomate {
   
+	// WebDriver interface object
 	WebDriver driver;
 	  
+	
 	  @BeforeMethod
 	  public void beforeMethod() {
 		  //New update
