@@ -3,12 +3,13 @@
 <suite parallel="none" name="Failed suite [Default suite]">
   <test parallel="none" name="Default test(failed)">
     <classes>
-      <class name="com.automation.SeleniumJavaFramework.DropDownAutomate">
+      <class name="com.automation.SeleniumJavaFramework.DropDown">
         <methods>
-          <include name="handleDropDown"/>
           <include name="beforeMethod"/>
+          <include name="afterMethod"/>
+          <include name="handleDropDown"/>
         </methods>
-      </class> <!-- com.automation.SeleniumJavaFramework.DropDownAutomate -->
+      </class> <!-- com.automation.SeleniumJavaFramework.DropDown -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
