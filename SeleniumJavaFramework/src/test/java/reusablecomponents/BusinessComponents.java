@@ -4,7 +4,7 @@ import objectrepository.DropDownOR;
 
 public class BusinessComponents extends TechnicalComponents{
 
-	public static void verifyDropdown() {
+	public void verifyDropdown() {
 		
 		DropDownOR d = new DropDownOR(driver);
 		d.insideDropDown();

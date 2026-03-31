@@ -7,6 +7,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
+
+import config.Report;
 import reusablecomponents.TechnicalComponents;
 
 public class DropDownOR {
@@ -30,10 +32,13 @@ public class DropDownOR {
 		Select dropdown = new Select(drop_Down);
 		TechnicalComponents.wait(3); 
 		dropdown.selectByIndex(0);
+		Report.info("DropDown Index 0 Selection :", driver);
 		TechnicalComponents.wait(3); 
 		dropdown.selectByValue("benz");
+		Report.info("DropDown Selection by Value :", driver);
 		TechnicalComponents.wait(3); 
 		dropdown.selectByVisibleText("Honda");
+		Report.info("DropDown Selection by VisibleText :", driver);
 		TechnicalComponents.wait(3); 
 
 	}

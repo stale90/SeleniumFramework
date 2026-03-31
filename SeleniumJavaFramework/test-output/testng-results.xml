@@ -2,20 +2,31 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-03-31T04:55:34Z" name="Default suite" finished-at="2026-03-31T04:55:55Z" duration-ms="20784">
+  <suite started-at="2026-03-31T11:09:24Z" name="Default suite" finished-at="2026-03-31T11:09:46Z" duration-ms="22053">
     <groups>
     </groups>
-    <test started-at="2026-03-31T04:55:34Z" name="Default test" finished-at="2026-03-31T04:55:55Z" duration-ms="20784">
+    <test started-at="2026-03-31T11:09:24Z" name="Default test" finished-at="2026-03-31T11:09:46Z" duration-ms="22053">
       <class name="com.automation.SeleniumJavaFramework.DropDown">
-        <test-method is-config="true" signature="beforeMethod()[pri:0, instance:com.automation.SeleniumJavaFramework.DropDown@62ef27a8]" started-at="2026-03-31T04:55:34Z" name="beforeMethod" finished-at="2026-03-31T04:55:35Z" duration-ms="815" status="PASS">
+        <test-method is-config="true" signature="beforeSuite()[pri:0, instance:com.automation.SeleniumJavaFramework.DropDown@6fb365ed]" started-at="2026-03-31T11:09:23Z" name="beforeSuite" finished-at="2026-03-31T11:09:24Z" duration-ms="706" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeSuite -->
+        <test-method is-config="true" signature="beforeMethod(java.lang.reflect.Method)[pri:0, instance:com.automation.SeleniumJavaFramework.DropDown@6fb365ed]" started-at="2026-03-31T11:09:24Z" name="beforeMethod" finished-at="2026-03-31T11:09:25Z" duration-ms="824" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.automation.SeleniumJavaFramework.DropDown.handleDropDown()]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeMethod -->
-        <test-method signature="handleDropDown()[pri:0, instance:com.automation.SeleniumJavaFramework.DropDown@62ef27a8]" started-at="2026-03-31T04:55:35Z" name="handleDropDown" finished-at="2026-03-31T04:55:55Z" duration-ms="19768" status="PASS">
+        <test-method signature="handleDropDown()[pri:0, instance:com.automation.SeleniumJavaFramework.DropDown@6fb365ed]" started-at="2026-03-31T11:09:25Z" name="handleDropDown" finished-at="2026-03-31T11:09:45Z" duration-ms="20597" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- handleDropDown -->
-        <test-method is-config="true" signature="afterMethod()[pri:0, instance:com.automation.SeleniumJavaFramework.DropDown@62ef27a8]" started-at="2026-03-31T04:55:55Z" name="afterMethod" finished-at="2026-03-31T04:55:55Z" duration-ms="189" status="PASS">
+        <test-method is-config="true" signature="afterMethod()[pri:0, instance:com.automation.SeleniumJavaFramework.DropDown@6fb365ed]" started-at="2026-03-31T11:09:45Z" name="afterMethod" finished-at="2026-03-31T11:09:46Z" duration-ms="615" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterMethod -->

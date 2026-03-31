@@ -1,6 +1,7 @@
 package reusablecomponents;
 
 import config.FrameworkException;
+import config.Report;
 import config.TestSetup;
 
 public class TechnicalComponents extends TestSetup {
@@ -9,6 +10,7 @@ public class TechnicalComponents extends TestSetup {
 		try {
 			if (url != "") {
 				driver.get(url);
+				Report.info("Info", driver);
 				driver.manage().window().maximize();
 				
 			}
