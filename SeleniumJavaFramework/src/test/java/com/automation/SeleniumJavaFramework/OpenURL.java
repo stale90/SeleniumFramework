@@ -7,11 +7,9 @@ import reusablecomponents.BusinessComponents;
 
 public class OpenURL extends BusinessComponents {
 
-	@Test
-	public void testBrowserOpenURL() {
-		String testDesc = "Practice:52 -Verify browser launches and URL gets open";
-		String complexity = "low";
-		String url = "https://www.flipkart.com/";
+	@Test(dataProvider = "testWebUrls", dataProviderClass = data.TestData.class)
+	public void testBrowserOpenURL(String testDesc, String complexity, String url) {
+		
 		setParametersPerTestCase(testDesc,complexity);
 		try {
 			navigatetoUrl(url);

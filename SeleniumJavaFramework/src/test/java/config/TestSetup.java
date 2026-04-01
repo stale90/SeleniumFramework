@@ -30,6 +30,7 @@ public class TestSetup {
 			testCaseSkipped = 0;
 	public static HashMap<Integer, String> testCaseName = new HashMap<Integer, String>();
 	public static String testName, testCaseResult;
+	public static String testDataLocation;
 
 	/*
 	 * Before Suite method........
@@ -37,6 +38,8 @@ public class TestSetup {
 	@BeforeSuite
 	public void beforeSuite() {
 		Report.initialiseReporters();
+		testDataLocation = Utilities.getProperty("TEST_DATA_LOCATION");
+		
 	}
 
 	/*

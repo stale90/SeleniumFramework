@@ -1,43 +1,146 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="1" total="2" passed="1" failed="0" skipped="0">
+<testng-results ignored="0" total="3" passed="3" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-04-01T07:56:25Z" name="Default suite" finished-at="2026-04-01T07:56:49Z" duration-ms="24083">
+  <suite started-at="2026-04-01T08:48:28Z" name="Default suite" finished-at="2026-04-01T08:49:01Z" duration-ms="33243">
     <groups>
     </groups>
-    <test started-at="2026-04-01T07:56:25Z" name="Default test" finished-at="2026-04-01T07:56:49Z" duration-ms="24083">
+    <test started-at="2026-04-01T08:48:28Z" name="Default test" finished-at="2026-04-01T08:49:01Z" duration-ms="33243">
       <class name="com.automation.SeleniumJavaFramework.OpenURL">
-        <test-method is-config="true" signature="beforeSuite()[pri:0, instance:com.automation.SeleniumJavaFramework.OpenURL@4b14918a]" started-at="2026-04-01T07:56:24Z" name="beforeSuite" finished-at="2026-04-01T07:56:25Z" duration-ms="820" status="PASS">
+        <test-method is-config="true" signature="beforeSuite()[pri:0, instance:com.automation.SeleniumJavaFramework.OpenURL@46dffdc3]" started-at="2026-04-01T08:48:27Z" name="beforeSuite" finished-at="2026-04-01T08:48:28Z" duration-ms="814" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeSuite -->
-        <test-method is-config="true" signature="beforeMethod(java.lang.reflect.Method)[pri:0, instance:com.automation.SeleniumJavaFramework.OpenURL@4b14918a]" started-at="2026-04-01T07:56:25Z" name="beforeMethod" finished-at="2026-04-01T07:56:26Z" duration-ms="998" status="PASS">
+        <test-method is-config="true" signature="beforeMethod(java.lang.reflect.Method)[pri:0, instance:com.automation.SeleniumJavaFramework.OpenURL@46dffdc3]" started-at="2026-04-01T08:48:28Z" name="beforeMethod" finished-at="2026-04-01T08:48:29Z" duration-ms="1028" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void com.automation.SeleniumJavaFramework.OpenURL.testDropDownElement()]]>
+                <![CDATA[public void com.automation.SeleniumJavaFramework.OpenURL.testBrowserOpenURL(java.lang.String,java.lang.String,java.lang.String)]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeMethod -->
-        <test-method signature="testDropDownElement()[pri:0, instance:com.automation.SeleniumJavaFramework.OpenURL@4b14918a]" started-at="2026-04-01T07:56:26Z" name="testDropDownElement" finished-at="2026-04-01T07:56:48Z" duration-ms="22326" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- testDropDownElement -->
-        <test-method is-config="true" signature="afterMethod(org.testng.ITestResult)[pri:0, instance:com.automation.SeleniumJavaFramework.OpenURL@4b14918a]" started-at="2026-04-01T07:56:48Z" name="afterMethod" finished-at="2026-04-01T07:56:49Z" duration-ms="728" status="PASS">
+        <test-method signature="testBrowserOpenURL(java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.automation.SeleniumJavaFramework.OpenURL@46dffdc3]" started-at="2026-04-01T08:48:29Z" name="testBrowserOpenURL" data-provider="testWebUrls" finished-at="2026-04-01T08:48:34Z" duration-ms="4665" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=testDropDownElement status=SUCCESS method=OpenURL.testDropDownElement()[pri:0, instance:com.automation.SeleniumJavaFramework.OpenURL@4b14918a] output={null}]]]>
+                <![CDATA[Verify user is able to navigate to website Url]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Low]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[https://www.flipkart.com/]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testBrowserOpenURL -->
+        <test-method is-config="true" signature="afterMethod(org.testng.ITestResult)[pri:0, instance:com.automation.SeleniumJavaFramework.OpenURL@46dffdc3]" started-at="2026-04-01T08:48:34Z" name="afterMethod" finished-at="2026-04-01T08:48:35Z" duration-ms="933" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=testBrowserOpenURL status=SUCCESS method=OpenURL.testBrowserOpenURL(java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.automation.SeleniumJavaFramework.OpenURL@46dffdc3] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterMethod -->
-        <test-method is-config="true" signature="afterSuite()[pri:0, instance:com.automation.SeleniumJavaFramework.OpenURL@4b14918a]" started-at="2026-04-01T07:56:49Z" name="afterSuite" finished-at="2026-04-01T07:56:49Z" duration-ms="1" status="PASS">
+        <test-method is-config="true" signature="beforeMethod(java.lang.reflect.Method)[pri:0, instance:com.automation.SeleniumJavaFramework.OpenURL@46dffdc3]" started-at="2026-04-01T08:48:35Z" name="beforeMethod" finished-at="2026-04-01T08:48:35Z" duration-ms="654" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.automation.SeleniumJavaFramework.OpenURL.testBrowserOpenURL(java.lang.String,java.lang.String,java.lang.String)]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeMethod -->
+        <test-method signature="testBrowserOpenURL(java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.automation.SeleniumJavaFramework.OpenURL@46dffdc3]" started-at="2026-04-01T08:48:35Z" name="testBrowserOpenURL" data-provider="testWebUrls" finished-at="2026-04-01T08:48:52Z" duration-ms="16875" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Verify user is able to navigate to website Url]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Low]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[https://in.bookmyshow.com/explore/home/indore]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testBrowserOpenURL -->
+        <test-method is-config="true" signature="afterMethod(org.testng.ITestResult)[pri:0, instance:com.automation.SeleniumJavaFramework.OpenURL@46dffdc3]" started-at="2026-04-01T08:48:52Z" name="afterMethod" finished-at="2026-04-01T08:48:53Z" duration-ms="610" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=testBrowserOpenURL status=SUCCESS method=OpenURL.testBrowserOpenURL(java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.automation.SeleniumJavaFramework.OpenURL@46dffdc3] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterMethod -->
+        <test-method is-config="true" signature="beforeMethod(java.lang.reflect.Method)[pri:0, instance:com.automation.SeleniumJavaFramework.OpenURL@46dffdc3]" started-at="2026-04-01T08:48:53Z" name="beforeMethod" finished-at="2026-04-01T08:48:54Z" duration-ms="681" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.automation.SeleniumJavaFramework.OpenURL.testBrowserOpenURL(java.lang.String,java.lang.String,java.lang.String)]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeMethod -->
+        <test-method signature="testBrowserOpenURL(java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.automation.SeleniumJavaFramework.OpenURL@46dffdc3]" started-at="2026-04-01T08:48:54Z" name="testBrowserOpenURL" data-provider="testWebUrls" finished-at="2026-04-01T08:49:00Z" duration-ms="6892" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Verify user is able to navigate to website Url]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Low]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[https://oshoworld.com/]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testBrowserOpenURL -->
+        <test-method is-config="true" signature="afterMethod(org.testng.ITestResult)[pri:0, instance:com.automation.SeleniumJavaFramework.OpenURL@46dffdc3]" started-at="2026-04-01T08:49:00Z" name="afterMethod" finished-at="2026-04-01T08:49:01Z" duration-ms="471" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=testBrowserOpenURL status=SUCCESS method=OpenURL.testBrowserOpenURL(java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.automation.SeleniumJavaFramework.OpenURL@46dffdc3] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterMethod -->
+        <test-method is-config="true" signature="afterSuite()[pri:0, instance:com.automation.SeleniumJavaFramework.OpenURL@46dffdc3]" started-at="2026-04-01T08:49:01Z" name="afterSuite" finished-at="2026-04-01T08:49:01Z" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterSuite -->
