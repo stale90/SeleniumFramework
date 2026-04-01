@@ -65,7 +65,7 @@ public class Report {
 	 * Called from BeforeMethod........
 	 */
 	public static void startReporters(String testName) {
-		logger = report.startTest(testName, "test description");
+		logger = report.startTest(testName, " ");
 		loggerForLogs = log.startTest(testName);
 	}
 
@@ -184,24 +184,21 @@ public class Report {
 	 * Set Logger name and description where  testname and description both passed to print on Extent reports and
 	 * elsewhere.
 	 */
-	public static void setLoggersTestNameAndDesc(String testName, String testDesc, int testCaseCount) {
+	public static void setLoggersTestNameAndDesc(String testDesc,String complexity,String browserName,String browserVersion, int testCaseCount) {
 		try {
-			String deviceName = Utilities.getProperty("DEVICE_NAME");
-			String osVersion = Utilities.getProperty("DEVICE_PLATFORM_VERSION");
+			logger.getTest().setName("TestCase # " + testCaseCount + "---" + logger.getTest().getName() + "---" + testDesc);
+			loggerForLogs.getTest()
+					.setName("TestCase # " + testCaseCount + "---" + loggerForLogs.getTest().getName() + "---" + testDesc);
 
-			logger.getTest()
-					.setName("TestCase # " + testCaseCount + "---" + logger.getTest().getName() + "---" + testName);
-			loggerForLogs.getTest().setName(
-					"TestCase # " + testCaseCount + "---" + loggerForLogs.getTest().getName() + "---" + testName);
-
-			logger.setDescription(testDesc + deviceName + "---" + osVersion);
-			loggerForLogs.setDescription(testDesc + deviceName + "---" + osVersion);
-
+			logger.setDescription("TestCase # " + testCaseCount + "---" + testDesc + "---" + complexity + "---" + browserName + "---" + browserVersion);
+			loggerForLogs.setDescription("TestCase # " + testCaseCount + "---" + testDesc + "---" + complexity + "---"
+						+ browserName + "---" + browserVersion);
+			
 		} catch (Exception e) {
 			throw new FrameworkException("Exception occured while set Test name and Description in Logger report");
 		}
 	}
-	
+
 	/**
 	 * Method to write Excel report after test suite execution. Not using currently.
 	 */

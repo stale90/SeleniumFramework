@@ -1,20 +1,37 @@
 package config;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
-
+import reusablecomponents.Utilities;
 
 public class TestSetup {
 
 	public static WebDriver driver;
-	String testName;
-	
-	/**
+	public static long timeOut, driverWait;
+	public static WebDriverWait wait;
+	public static int testCaseCount = 0, testCaseExecuted = 0, testCasePassed = 0, testCaseFailed = 0,
+			testCaseSkipped = 0;
+	public static HashMap<Integer, String> testCaseName = new HashMap<Integer, String>();
+	public static String testName, testCaseResult;
+
+	/*
 	 * Before Suite method........
 	 */
 	@BeforeSuite
@@ -22,27 +39,110 @@ public class TestSetup {
 		Report.initialiseReporters();
 	}
 
-	 @BeforeMethod
-	  public void beforeMethod(Method method) {
-		// Set up ChromeDriver
-		  testName = method.getName();
-		  Report.startReporters(testName);
-		  getBrowserDriver();
-	      
-		  
-	  }
+	/*
+	 * Before method....
+	 */
+	@BeforeMethod
+	public void beforeMethod(Method method) {
+		testCaseCount++;
+		testName = method.getName();
+		driverWait = Long.parseLong(Utilities.getProperty("IMPLICIT_WAIT"));
+		
+		testCaseName.put(testCaseCount, testName);
+		Report.startReporters(testName);
+		getBrowserDriver();
+
+	}
 	
+	/*
+	 * After method....
+	 */
 	@AfterMethod
-	  public void afterMethod() {
+	public void afterMethod(ITestResult result) {
 		Report.flushReporters();
-	    driver.quit();
+		switch (result.getStatus()) {
+		case ITestResult.SUCCESS:
+			testCasePassed++;
+			testCaseResult = "PASS";
+			break;
+		case ITestResult.FAILURE:
+			testCaseFailed++;
+			testCaseResult = "FAIL";
+			break;
+		case ITestResult.SKIP:
+			testCaseSkipped++;
+			testCaseResult = "SKIP";
+			break;
+		}
+		testCaseExecuted = testCasePassed + testCaseFailed;
+		driver.quit();
+		
+	}
+
+	/*
+	 * After Suite .....
+	 */
+	@AfterSuite
+	public void afterSuite() throws FileNotFoundException, IOException {
+		System.out.println("Test Cases Executed: " + testCaseExecuted);
+		System.out.println("Test Cases Passed: " + testCasePassed);
+		System.out.println("Test Cases Failed: " + testCaseFailed);
+		System.out.println("Test Cases Skipped: " + testCaseSkipped);
 	}
 	
 	public void getBrowserDriver() {
 		System.setProperty("webdriver.chrome.driver", "Driver/" + "chromedriver.exe");
-	    driver = new ChromeDriver(); 
-	    driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-		
+		driver = new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+
 	}
-	
+
+	/**
+	 * Sets the logger test description to the one from sheet and customize waits
+	 * per test case complexity
+	 * 
+	 * @param testDesc   - Test Description to be entered.
+	 * @param complexity - Complexity of test case i.e. high, medium or low. high
+	 *                   will have maximum wait and will be reduced from high till
+	 *                   low.
+	 * @throws FrameworkException in case of error.
+	 */
+
+	public void setParametersPerTestCase(String testDesc, String complexity) {
+		String browserVersion = "", browserName = "";
+		
+		try {
+			 Capabilities cap = ((RemoteWebDriver) driver).getCapabilities();
+			 // Browser Name
+			 browserName = String.format("Browser Name: %s", cap.getCapability("browserName"));
+			 // Browser Version
+				if (driver instanceof ChromeDriver) {
+					browserVersion = (String) cap.getCapability("browserVersion");
+				} else if (driver instanceof FirefoxDriver) {
+					browserVersion = String.format("Browser Version: %s", cap.getVersion());
+				} else if (driver instanceof EdgeDriver) {
+					browserVersion = String.format("Browser Version: %s", cap.getVersion());
+				} else if (driver instanceof InternetExplorerDriver) {
+					browserVersion = String.format("Browser Version: %s", cap.getVersion());
+				} else if (driver instanceof RemoteWebDriver) {
+					browserVersion = "";
+				}
+			} catch (Exception e) {
+				throw new FrameworkException(
+						"Unknown exeception occurs in TestSetup.setParametersPerTestCase Method");
+		}
+			// Timeout Assign based on complexity of Test
+		if (driver != null) {
+			if (complexity.toLowerCase().equals("high")) {
+				timeOut = Long.parseLong(Utilities.getProperty("TIME_OUT"));
+			} else if (complexity.toLowerCase().equals("medium")) {
+				timeOut = Long.parseLong(Utilities.getProperty("TIME_OUT_MEDIUM"));
+			} else if (complexity.toLowerCase().equals("low")) {
+				timeOut = Long.parseLong(Utilities.getProperty("TIME_OUT_LOW"));
+			}
+			wait = new WebDriverWait(driver, timeOut);
+		}
+		Report.setLoggersTestNameAndDesc(testDesc, complexity, browserName, browserVersion, testCaseCount);
+	}
+
 }
