@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -19,6 +18,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+
 import reusablecomponents.Utilities;
 
 public class TestSetup {
@@ -30,8 +30,13 @@ public class TestSetup {
 			testCaseSkipped = 0;
 	public static HashMap<Integer, String> testCaseName = new HashMap<Integer, String>();
 	public static String testName, testCaseResult;
-	public static String testDataLocation;
-
+	public static String testDataLocation , testCategory, browserName;
+	public boolean toBeTested = false;
+	public static String[][] testCases;
+	public static HashMap<String, String> testCasesToBeExecuted = new HashMap<String, String>();
+	public static HashMap<String, String> testCaseBrowser = new HashMap<String, String>();
+	public static HashMap<String, String> testCaseCategory = new HashMap<String, String>();
+	
 	/*
 	 * Before Suite method........
 	 */
@@ -40,29 +45,48 @@ public class TestSetup {
 		Report.initialiseReporters();
 		testDataLocation = Utilities.getProperty("TEST_DATA_LOCATION");
 		
+		testCases = Utilities.Read_Excel(testDataLocation, "TestCases");
+
+		for (int i = 0; i < testCases.length; i++) {
+			testCasesToBeExecuted.put(testCases[i][1], testCases[i][2]);
+			testCaseBrowser.put(testCases[i][1], testCases[i][4]);
+			testCaseCategory.put(testCases[i][1], testCases[i][3]);
+		}
 	}
 
 	/*
 	 * Before method....
 	 */
+	
 	@BeforeMethod
 	public void beforeMethod(Method method) {
 		testCaseCount++;
 		testName = method.getName();
+		driver = null;
 		driverWait = Long.parseLong(Utilities.getProperty("IMPLICIT_WAIT"));
-		
 		testCaseName.put(testCaseCount, testName);
 		Report.startReporters(testName);
-		getBrowserDriver();
-
+		try {
+			if (testCasesToBeExecuted.get(testName).equalsIgnoreCase("Yes")) {
+				toBeTested = true;
+				testCategory = testCaseCategory.get(testName);
+				browserName = testCaseBrowser.get(testName);
+				getBrowserDriver(browserName);
+			}
+		} catch (NullPointerException e) {
+			Report.skip(testName + " not configured. Please check data file and function name for consistency.");
+		}
 	}
 	
 	/*
 	 * After method....
 	 */
+	
 	@AfterMethod
 	public void afterMethod(ITestResult result) {
 		Report.flushReporters();
+		
+		try {
 		switch (result.getStatus()) {
 		case ITestResult.SUCCESS:
 			testCasePassed++;
@@ -79,12 +103,16 @@ public class TestSetup {
 		}
 		testCaseExecuted = testCasePassed + testCaseFailed;
 		driver.quit();
-		
+		}catch(Exception e) {
+			Report.log("Unknown Exception occured in after Method execution. ");
+			
+		}
 	}
 
 	/*
 	 * After Suite .....
 	 */
+	
 	@AfterSuite
 	public void afterSuite() throws FileNotFoundException, IOException {
 		System.out.println("Test Cases Executed: " + testCaseExecuted);
@@ -93,11 +121,12 @@ public class TestSetup {
 		System.out.println("Test Cases Skipped: " + testCaseSkipped);
 	}
 	
-	public void getBrowserDriver() {
-		System.setProperty("webdriver.chrome.driver", "Driver/" + "chromedriver.exe");
-		driver = new ChromeDriver();
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-
+	public void getBrowserDriver(String browser) {
+		if (browser.equalsIgnoreCase("chrome")) {
+			System.setProperty("webdriver.chrome.driver", "Driver/" + "chromedriver.exe");
+			driver = new ChromeDriver();
+			driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		}
 	}
 
 	/**
