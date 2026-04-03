@@ -18,6 +18,7 @@ public class Report {
 	public static ExtentReports report, log;
 	public static ExtentTest logger, loggerForLogs;
 	public static String excelReport;
+	public static String currentTestName="Default_Name",currentTestDesc="Default_Desc";
 
 	/**
 	 * Called from BeforeSuite........
@@ -25,11 +26,13 @@ public class Report {
 
 	public static void initialiseReporters() {
 		String reportName = getReportFileName();
-
-		report = new ExtentReports(
-				"Reports/Report_" + Utilities.getCurrentDate().replace("/", "") + "/" + reportName + ".html");
-		excelReport = "Reports/Report_" + Utilities.getCurrentDate().replace("/", "") + "/" + reportName + ".xlsx";
-		log = new ExtentReports("Logs/Log_" + Utilities.getCurrentDate().replace("/", "") + "/" + reportName + ".html");
+		String HTML_REPORT_NAME = "Reports/Report_" + Utilities.getCurrentDate().replace("/", "") + "/" + reportName + ".html";
+		String EXCEL_REPORT_NAME = "Reports/Report_" + Utilities.getCurrentDate().replace("/", "") + "/" + reportName + ".xlsx";
+		String LOG_REPORT_NAME = "Logs/Log_" + Utilities.getCurrentDate().replace("/", "") + "/" + reportName + ".html";
+		
+		report = new ExtentReports(HTML_REPORT_NAME);
+		excelReport = EXCEL_REPORT_NAME;
+		log = new ExtentReports(LOG_REPORT_NAME);
 
 		setScreenshotsLocation();
 		// Set header values of Excel Report
@@ -48,7 +51,7 @@ public class Report {
 	 * Prepare and return Report name from Time stamp and date.
 	 */
 	public static String getReportFileName() {
-		String reportName = "Mobile_";
+		String reportName = "Web_";
 		reportName = reportName + Utilities.getTimeStamp("local").replace("-", "").replace(":", "");
 		return reportName;
 	}
@@ -186,6 +189,8 @@ public class Report {
 	 */
 	public static void setLoggersTestNameAndDesc(String testDesc,String complexity,String browserName,String browserVersion, int testCaseCount) {
 		try {
+			currentTestName = "TestCase # " + testCaseCount + "---" + logger.getTest().getName() + "---" + testDesc;
+			currentTestDesc = "TestCase # " + testCaseCount + "---" + testDesc + "---" + complexity + "---" + browserName + "---" + browserVersion;
 			logger.getTest().setName("TestCase # " + testCaseCount + "---" + logger.getTest().getName() + "---" + testDesc);
 			loggerForLogs.getTest()
 					.setName("TestCase # " + testCaseCount + "---" + loggerForLogs.getTest().getName() + "---" + testDesc);
@@ -201,6 +206,7 @@ public class Report {
 
 	/**
 	 * Method to write Excel report after test suite execution. Not using currently.
+	 * 
 	 */
 	public static void writeExcelReport(HashMap<Integer, String> testCaseName, HashMap<Integer, String> testCaseResult,
 			int testCaseCount) {
@@ -224,10 +230,10 @@ public class Report {
 	 * Method to write Excel report after each method execution.currently in use.
 	 */
 
-	public static void writeResultInExcelReport(String testCaseName, String testCaseResult, int testCaseCount) {
+	public static void writeTestResultInExcel(int rowCounter,String testCaseStatus ) {
 		try {
-			Utilities.Write_Excel(excelReport, "TestCaseLogs", testCaseCount, 0, testCaseName);
-			Utilities.Write_Excel(excelReport, "TestCaseLogs", testCaseCount, 1, testCaseResult);
+			Utilities.Write_Excel(excelReport, "TestCaseLogs", rowCounter, 0, currentTestName);
+			Utilities.Write_Excel(excelReport, "TestCaseLogs", rowCounter, 1, testCaseStatus);
 
 		} catch (Exception e) {
 			throw new FrameworkException("Exception occured while writing Excel Report");

@@ -28,8 +28,7 @@ public class TestSetup {
 	public static WebDriverWait wait;
 	public static int testCaseCount = 0, testCaseExecuted = 0, testCasePassed = 0, testCaseFailed = 0,
 			testCaseSkipped = 0;
-	public static HashMap<Integer, String> testCaseName = new HashMap<Integer, String>();
-	public static String testName, testCaseResult;
+	public static String testName;
 	public static String testDataLocation , testCategory, browserName;
 	public boolean toBeTested = false;
 	public static String[][] testCases;
@@ -40,6 +39,7 @@ public class TestSetup {
 	/*
 	 * Before Suite method........
 	 */
+	
 	@BeforeSuite
 	public void beforeSuite() {
 		Report.initialiseReporters();
@@ -64,7 +64,6 @@ public class TestSetup {
 		testName = method.getName();
 		driver = null;
 		driverWait = Long.parseLong(Utilities.getProperty("IMPLICIT_WAIT"));
-		testCaseName.put(testCaseCount, testName);
 		Report.startReporters(testName);
 		try {
 			if (testCasesToBeExecuted.get(testName).equalsIgnoreCase("Yes")) {
@@ -84,24 +83,27 @@ public class TestSetup {
 	
 	@AfterMethod
 	public void afterMethod(ITestResult result) {
+		String testCaseStatus = null;
+		int rowCounter = testCaseCount;
 		Report.flushReporters();
 		
 		try {
 		switch (result.getStatus()) {
 		case ITestResult.SUCCESS:
 			testCasePassed++;
-			testCaseResult = "PASS";
+			testCaseStatus = "PASS";
 			break;
 		case ITestResult.FAILURE:
 			testCaseFailed++;
-			testCaseResult = "FAIL";
+			testCaseStatus = "FAIL";
 			break;
 		case ITestResult.SKIP:
 			testCaseSkipped++;
-			testCaseResult = "SKIP";
+			testCaseStatus = "SKIP";
 			break;
 		}
 		testCaseExecuted = testCasePassed + testCaseFailed;
+		Report.writeTestResultInExcel(rowCounter,testCaseStatus);
 		driver.quit();
 		}catch(Exception e) {
 			Report.log("Unknown Exception occured in after Method execution. ");
