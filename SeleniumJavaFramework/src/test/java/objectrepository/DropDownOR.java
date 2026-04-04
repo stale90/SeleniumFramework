@@ -1,15 +1,13 @@
 package objectrepository;
 
 import java.util.List;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
-
-import config.Report;
 import reusablecomponents.TechnicalComponents;
+import config.Report;
 
 public class DropDownOR {
 	
@@ -22,25 +20,24 @@ public class DropDownOR {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
+	
 	public void insideDropDown() {
-		System.out.println("Inside Object Repository");
-		
+		System.out.println("Inside Object Repository : " + this.getClass() );
 	}
 		
 	public void verifyDropdownSelection() {
-		// Select Value
-		Select dropdown = new Select(drop_Down);
+		
+		TechnicalComponents.selectValuefromDropdown(drop_Down, "index", "2");
+		Report.info("DropDown Index 2 Selection : Honda ", driver);
+		TechnicalComponents.wait(3);
+	
+		TechnicalComponents.selectValuefromDropdown(drop_Down, "value", "benz");
+		TechnicalComponents.wait(3);
+		Report.info("DropDown Selection by Value : benz", driver);
+		
+		TechnicalComponents.selectValuefromDropdown(drop_Down, "visibletext", "BMW");
+		Report.info("DropDown Selection by VisibleText : BMW", driver);
 		TechnicalComponents.wait(3); 
-		dropdown.selectByIndex(0);
-		Report.info("DropDown Index 0 Selection :", driver);
-		TechnicalComponents.wait(3); 
-		dropdown.selectByValue("benz");
-		Report.info("DropDown Selection by Value :", driver);
-		TechnicalComponents.wait(3); 
-		dropdown.selectByVisibleText("Honda");
-		Report.info("DropDown Selection by VisibleText :", driver);
-		TechnicalComponents.wait(3); 
-
 	}
 
 	public void printDropdownOptions() {
