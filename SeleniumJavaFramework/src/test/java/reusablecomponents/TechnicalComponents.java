@@ -1,5 +1,7 @@
 package reusablecomponents;
 
+import java.util.List;
+
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
@@ -142,15 +144,19 @@ public class TechnicalComponents extends TestSetup {
 		}
 	}
 	
-	public static void selectValuefromDropdown(WebElement dropdown, String selectBy, String value) {
+	public static void selectValuefromDropdown(Select select, String selectBy, String value, String desc) {
 		try {
-			Select select = new Select(dropdown);
 			if (selectBy.toLowerCase().contains("value")) {
 				select.selectByValue(value);
+				Report.info("DropDown value selected by value : "+value, driver);
 			}else if(selectBy.toLowerCase().contains("visibletext")){
 				select.selectByVisibleText(value);
+				Report.info("DropDown value selected by VisibleText : "+value , driver);
 			} else if (selectBy.toLowerCase().contains("index")) {
 				select.selectByIndex(Integer.valueOf(value));
+				WebElement selectedOption = select.getFirstSelectedOption();
+				String selectedText = selectedOption.getText();
+				Report.info("DropDown value selected by Index : "+Integer.valueOf(value)+" with value : "+selectedText  , driver);
 			} else {
 				throw new FrameworkException(selectBy + " is incorrect parameter. Please contact Automation Team.");
 			}
@@ -159,13 +165,21 @@ public class TechnicalComponents extends TestSetup {
 				throw e;
 			} else {
 				throw new FrameworkException("Unknown exception while selecting value from dropdown---" + e.getClass()
-						+ "---" + e.getMessage());
+				+ "---" + e.getMessage());
 			}
 		}
-
 	}
 
-
-
+	public static void printListOfValues(List<WebElement> options, String desc) {
+		try {
+			for (int i = 0; i < options.size(); i++) {
+				Report.info("List Option With index " + i + " and value : " 
+						+ options.get(i).getText());	
+			}
+		} catch (Exception e) {
+			throw new FrameworkException("Unknown exception while printing values of Element List---" + e.getClass()
+			+ "---" + e.getMessage());
+		}
+	}
 
 }
