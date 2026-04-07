@@ -24,6 +24,7 @@ import reusablecomponents.Utilities;
 public class TestSetup {
 
 	public static WebDriver driver;
+	public static String testBrowser;
 	public static long timeOut, driverWait;
 	public static WebDriverWait wait;
 	public static int testCaseCount = 0, testCaseExecuted = 0, testCasePassed = 0, testCaseFailed = 0,
@@ -123,11 +124,31 @@ public class TestSetup {
 		System.out.println("Test Cases Skipped: " + testCaseSkipped);
 	}
 	
+	
+	/**
+	 * Method to Open specific browser based on TEST_BROWSER property value set in 
+	 * properties file
+	 * 
+	 * @param browser
+	 */
 	public void getBrowserDriver(String browser) {
+		 browser = Utilities.getProperty("TEST_BROWSER");
+		 
+		try {
 		if (browser.equalsIgnoreCase("chrome")) {
 			System.setProperty("webdriver.chrome.driver", "Driver/" + "chromedriver.exe");
 			driver = new ChromeDriver();
-			driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		} else if (browser.equalsIgnoreCase("firefox")) {
+			System.setProperty("webdriver.gecko.driver", "Driver/" + "geckodriver.exe");
+			driver = new FirefoxDriver();	
+		} else if (browser.equalsIgnoreCase("edge")) {
+			System.setProperty("webdriver.edge.driver", "Driver/" + "msedgedriver.exe");
+			driver = new EdgeDriver();	
+		}
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		}catch (Exception e) {
+			throw new FrameworkException(
+					"Unknown exeception occurs in TestSetup.getBrowserDriver Method---" + e.getClass() + "---" + e.getMessage());
 		}
 	}
 
